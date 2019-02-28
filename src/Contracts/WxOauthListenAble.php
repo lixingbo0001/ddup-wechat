@@ -3,7 +3,7 @@
 namespace Ddup\Wechat\Contracts;
 
 
-interface OauthListenAble
+interface WxOauthListenAble
 {
     function OAuthComplete($user);
 }

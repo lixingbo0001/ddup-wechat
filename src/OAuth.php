@@ -3,7 +3,7 @@
 
 use Ddup\Part\Libs\Helper;
 use Ddup\Part\Libs\Url;
-use Ddup\Wechat\Contracts\OauthListenAble;
+use Ddup\Wechat\Contracts\WxOauthListenAble;
 
 class OAuth extends WechatClient
 {
@@ -47,7 +47,7 @@ class OAuth extends WechatClient
         return empty($this->sessionUser());
     }
 
-    public function base(OauthListenAble $listenAble, $target, $callback)
+    public function base(WxOauthListenAble $listenAble, $target, $callback)
     {
         $wechat_user = $this->sessionUser();
 
