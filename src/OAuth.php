@@ -3,7 +3,6 @@
 
 use Ddup\Part\Libs\Helper;
 use Ddup\Part\Libs\Url;
-use Ddup\Wechat\Config\UserOption;
 use Ddup\Wechat\Contracts\OauthListenAble;
 
 class OAuth extends WechatClient
@@ -56,7 +55,7 @@ class OAuth extends WechatClient
             return $this->getRedirect($target, $callback);
         }
 
-        $listenAble->OAuthComplete(new UserOption($wechat_user), $wechat_user);
+        $listenAble->OAuthComplete($wechat_user, $wechat_user);
 
         return false;
     }
