@@ -1,11 +1,9 @@
 <?php namespace Ddup\Wechat\Kernel;
 
 
-use Ddup\Wechat\Contracts\MaterialDispoter;
-use Ddup\Wechat\Contracts\PullingInterface;
-use Ddup\Payments\Providers\ConfigProvider;
-use Ddup\Payments\Providers\LogProvider;
-use Ddup\Payments\Providers\SessionProvider;
+use Ddup\Wechat\Providers\ConfigProvider;
+use Ddup\Wechat\Providers\LogProvider;
+use Ddup\Wechat\Providers\SessionProvider;
 use Ddup\Wechat\Config\MiniAccount;
 use Ddup\Wechat\Config\OfficialAccount;
 use Ddup\Wechat\Contracts\SessionInterface;

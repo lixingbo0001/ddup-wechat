@@ -6,7 +6,7 @@
  * Time: 下午5:15
  */
 
-namespace Ddup\Payments\Providers;
+namespace Ddup\Wechat\Providers;
 
 
 use Ddup\Wechat\Kernel\Application;
