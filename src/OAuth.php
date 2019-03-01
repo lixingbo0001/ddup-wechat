@@ -3,6 +3,7 @@
 
 use Ddup\Part\Libs\Helper;
 use Ddup\Part\Libs\Url;
+use Ddup\Part\Request\Query;
 use Ddup\Wechat\Contracts\WxOauthListenAble;
 
 class OAuth extends WechatClient
@@ -34,7 +35,7 @@ class OAuth extends WechatClient
             'target_url' => $target
         ]);
 
-        return $this->oauth($callback)->redirect();
+        return new Query($this->oauth($callback)->redirect()->getTargetUrl());
     }
 
     protected function sessionUser()
@@ -47,6 +48,12 @@ class OAuth extends WechatClient
         return empty($this->sessionUser());
     }
 
+    /**
+     * @param WxOauthListenAble $listenAble
+     * @param $target
+     * @param $callback
+     * @return bool|Query
+     */
     public function base(WxOauthListenAble $listenAble, $target, $callback)
     {
         $wechat_user = $this->sessionUser();
