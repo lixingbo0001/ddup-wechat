@@ -12,4 +12,8 @@ class OfficialAccount extends StructReadable
     public $token;
     public $aes_key;
     public $debug;
+    public $oauth = [
+        'scopes'   => [],
+        'callback' => ''
+    ];
 }

@@ -33,24 +33,6 @@ class Application extends Container
         parent::__construct($values);
 
         $this->registerProviders();
-
-        $this->initApp();
-    }
-
-    private function initApp()
-    {
-        $config = $this->official_config->toArray();
-        $app    = \EasyWeChat\Factory::officialAccount($config);
-
-        $this->official_app = $app;
-
-        $config = $this->mini_config->toArray();
-        $app    = \EasyWeChat\Factory::miniProgram($config);
-
-        $this->mini_app = $app;
-
-        $this->official_app->register(new LogProvider());
-        $this->mini_app->register(new LogProvider());
     }
 
     private function registerProviders()

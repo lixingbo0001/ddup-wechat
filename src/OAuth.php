@@ -2,39 +2,39 @@
 
 
 use Ddup\Part\Libs\Helper;
-use Ddup\Part\Libs\Url;
+use Ddup\Part\Request\Query;
 use Ddup\Wechat\Contracts\WxOauthListenAble;
 
 class OAuth extends WechatClient
 {
 
-    protected $option;
-
-    private function oauth($callback)
+    private function oauth($target)
     {
-        $app = $this->_app->official_app;
+        $config = $this->_app->official_config;
 
-        $app->config = $app->config->merge([
-            'oauth' => [
-                'scopes'   => ['snsapi_base'],
-                'callback' => $callback,
-            ],
+        $callback = array_get($config->oauth, 'callback');
+
+        $query = new Query($callback, [
+            'target_url' => $target
         ]);
+
+        $config->oauth = [
+            'scopes'   => ['snsapi_base'],
+            'callback' => $query->getString(),
+        ];
+
+        $app = \EasyWeChat\Factory::officialAccount($config->toArray());
 
         return $app->oauth;
     }
 
-    public function getRedirect($target, $callback)
+    public function getRedirect($target)
     {
         self::sessionSave([
             'target_url' => $target
         ]);
 
-        $callback = Url::query($callback, [
-            'target_url' => $target
-        ]);
-
-        return $this->oauth($callback)->redirect();
+        return new Query($this->oauth($target)->redirect()->getTargetUrl());
     }
 
     protected function sessionUser()
@@ -47,12 +47,12 @@ class OAuth extends WechatClient
         return empty($this->sessionUser());
     }
 
-    public function base(WxOauthListenAble $listenAble, $target, $callback)
+    public function base(WxOauthListenAble $listenAble, $target)
     {
         $wechat_user = $this->sessionUser();
 
         if ($this->hasNotOauth()) {
-            return $this->getRedirect($target, $callback);
+            return $this->getRedirect($target);
         }
 
         $listenAble->OAuthComplete($wechat_user);
