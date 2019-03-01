@@ -3,7 +3,6 @@
 
 use Ddup\Part\Libs\Helper;
 use Ddup\Part\Libs\Url;
-use Ddup\Part\Request\Query;
 use Ddup\Wechat\Contracts\WxOauthListenAble;
 
 class OAuth extends WechatClient
@@ -13,7 +12,7 @@ class OAuth extends WechatClient
 
     private function oauth($callback)
     {
-        $app = $this->official_app;
+        $app = $this->_app->official_app;
 
         $app->config = $app->config->merge([
             'oauth' => [
@@ -35,12 +34,12 @@ class OAuth extends WechatClient
             'target_url' => $target
         ]);
 
-        return new Query($this->oauth($callback)->redirect()->getTargetUrl());
+        return $this->oauth($callback)->redirect();
     }
 
     protected function sessionUser()
     {
-        return $this->session->get('wechat_user', []);
+        return $this->session()->get('wechat_user', []);
     }
 
     public function hasNotOauth()
@@ -48,12 +47,6 @@ class OAuth extends WechatClient
         return empty($this->sessionUser());
     }
 
-    /**
-     * @param WxOauthListenAble $listenAble
-     * @param $target
-     * @param $callback
-     * @return bool|Query
-     */
     public function base(WxOauthListenAble $listenAble, $target, $callback)
     {
         $wechat_user = $this->sessionUser();
@@ -62,19 +55,19 @@ class OAuth extends WechatClient
             return $this->getRedirect($target, $callback);
         }
 
-        $listenAble->wxOAuthComplete($wechat_user);
+        $listenAble->OAuthComplete($wechat_user);
 
         return false;
     }
 
     public function oauthUser()
     {
-        return $this->official_app->oauth->user();
+        return $this->_app->official_app->oauth->user();
     }
 
     private function sessionSave($data)
     {
-        $this->session->value($data);
+        $this->session()->value($data);
     }
 
     public function callback($target_url)
@@ -83,6 +76,6 @@ class OAuth extends WechatClient
             'wechat_user' => Helper::toArray($this->oauthUser())
         ]);
 
-        return $this->session->get('target_url', $target_url);
+        return $this->session()->get('target_url', $target_url);
     }
 }
