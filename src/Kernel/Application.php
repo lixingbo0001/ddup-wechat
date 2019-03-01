@@ -1,7 +1,7 @@
 <?php namespace Ddup\Wechat\Kernel;
 
 
-use Ddup\Wechat\Providers\ConfigProvider;
+use Ddup\Wechat\Providers\ServiceProvider;
 use Ddup\Wechat\Providers\LogProvider;
 use Ddup\Wechat\Providers\SessionProvider;
 use Ddup\Wechat\Config\MiniAccount;
@@ -24,7 +24,7 @@ class Application extends Container
 {
 
     private $providers = [
-        ConfigProvider::class,
+        ServiceProvider::class,
         SessionProvider::class
     ];
 
