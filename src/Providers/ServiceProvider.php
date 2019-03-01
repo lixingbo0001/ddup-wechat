@@ -18,11 +18,23 @@ class ServiceProvider implements ServiceProviderInterface
     public function register(Container $pimple)
     {
         if ($pimple instanceof Application) {
-            $pimple->official_app = \EasyWeChat\Factory::officialAccount($pimple->official_config->toArray());
-            $pimple->mini_app     = \EasyWeChat\Factory::miniProgram($pimple->mini_config->toArray());
 
-            $pimple->official_app->logger = $pimple->logger;
-            $pimple->mini_app->logger     = $pimple->logger;
+            $pimple->official_app = function () use ($pimple) {
+                $app = \EasyWeChat\Factory::officialAccount($pimple->official_config->toArray());
+
+                $app->logger = $pimple->logger;
+
+                return $app;
+            };
+
+            $pimple->mini_app = function () use ($pimple) {
+                $app = \EasyWeChat\Factory::miniProgram($pimple->mini_config->toArray());
+
+                $app->logger = $pimple->logger;
+
+                return $app;
+            };
+
         }
     }
 

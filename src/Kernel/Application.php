@@ -41,4 +41,14 @@ class Application extends Container
             parent::register(new $provider);
         }
     }
+
+    public function __get($name)
+    {
+        return $this->offsetGet($name);
+    }
+
+    public function __set($name, $value)
+    {
+        $this->offsetSet($name, $value);
+    }
 }
