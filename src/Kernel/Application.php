@@ -1,12 +1,11 @@
 <?php namespace Ddup\Wechat\Kernel;
 
 
+use Ddup\Part\Session\SessionInterface;
 use Ddup\Wechat\Providers\ServiceProvider;
-use Ddup\Wechat\Providers\LogProvider;
 use Ddup\Wechat\Providers\SessionProvider;
 use Ddup\Wechat\Config\MiniAccount;
 use Ddup\Wechat\Config\OfficialAccount;
-use Ddup\Wechat\Contracts\SessionInterface;
 use Pimple\Container;
 use Psr\Log\LoggerInterface;
 
