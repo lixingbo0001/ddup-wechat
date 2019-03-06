@@ -55,9 +55,7 @@ class OAuth extends WechatClient
             return $this->getRedirect($target);
         }
 
-        $listenAble->wxOAuthComplete($wechat_user);
-
-        return false;
+        return $listenAble->wxOAuthComplete($wechat_user);
     }
 
     public function oauthUser()
