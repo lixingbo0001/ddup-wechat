@@ -19,7 +19,7 @@ class OAuth extends WechatClient
         ]);
 
         $config->oauth = [
-            'scopes'   => ['snsapi_base'],
+            'scopes'   => $config->oauth['scopes'],
             'callback' => $query->getString(),
         ];
 
