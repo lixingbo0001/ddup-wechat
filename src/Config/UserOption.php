@@ -9,4 +9,12 @@ class UserOption extends StructReadable
 {
     public $id;
     public $openid;
+    public $unionid;
+    public $nickname;
+    public $avatar;
+    public $language;
+    public $city;
+    public $province;
+    public $country;
+    public $headimgurl;
 }
